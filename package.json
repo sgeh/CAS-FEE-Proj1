@@ -1,0 +1,19 @@
+{
+  "name": "02-HTML-CSS",
+  "version": "1.0.0",
+  "description": "Static webserver",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cas-fe/02-HTML-CSS.git"
+  },
+  "author": "Thomas Jaggi",
+  "license": "MIT",
+  "homepage": "https://github.com/cas-fe/02-HTML-CSS",
+  "dependencies": {
+    "serve": "^6.1.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
