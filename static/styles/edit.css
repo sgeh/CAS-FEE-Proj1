@@ -1,0 +1,8 @@
+.edit-line {
+	display: flex;
+	flex-direction: column;
+}
+
+.edit-line:not(:first-child) {
+	margin-top: 25px;
+}

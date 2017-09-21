@@ -1,9 +1,57 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <title>Edit Note</title>
+    <title>CAS FEE / WED2 Projekt 1</title>
+    <link rel="stylesheet" href="styles/globals.css">
+    <link rel="stylesheet" href="styles/cards.css">
+    <link rel="stylesheet" href="styles/cards-theme-white.css" data-themes="black|white">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/main-theme-white.css" data-themes="black|white">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/index-theme-white.css" data-themes="black|white">
+    <link rel="stylesheet" href="styles/edit.css">
+    <link rel="stylesheet" href="styles/edit-theme-white.css" data-themes="black|white">
 </head>
 <body>
-
+<main>
+    <header class="top-bar">
+        <h1>Notiz editieren/hinzufügen</h1>
+    </header>
+    <nav>
+        <ul class="navigation">
+            <li><a href="/">Übersicht</a></li>
+        </ul>
+    </nav>
+    <section class="content">
+        <article class="card">
+            <header>
+                <h2 class="title"><label for="txtTitle">Titel: </label><input id="txtTitle" type="text" full-line></h2>
+                <div><a href="#" id="lnkStarSt">☆</a><a href="#" id="lnkStarNd">☆</a><a href="#" id="lnkStarRd">★</a><a href="#" id="lnkStarFoTh">★</a><a href="#" id="lnkStarFiTh">★</a></div>
+            </header>
+            <section>
+                <div class="edit-line">
+                    <label for="txtDescription">Beschreibung: </label>
+                    <textarea full-line id="txtDescription"></textarea>
+                </div>
+                <div class="edit-line">
+                    <label for="txtDescription">Zu erledigen bis: </label>
+                    <input type="date" id="dteCompleteUntil"></input>
+                </div>
+            </section>
+            <footer>
+                <input type="button" id="btnCancel" value="Zurück">
+                <input type="button" id="btnSave" value="Speichern">
+            </footer>
+        </article>
+    </section>
+    <aside>
+        <label for="ddlStyleSelection">Style:</label>
+        <select id="ddlStyleSelection">
+            <option selected>White</option>
+            <option>Black</option>
+        </select>
+    </aside>
+    <footer>&copy; 2017 - HSR Hochschule für Technik Rapperswil</footer>
+</main>
 </body>
 </html>

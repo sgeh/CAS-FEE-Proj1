@@ -1,12 +1,21 @@
 .top-bar {
-	background-color: black;
-	color: white;
+	/* theme colors */
 }
 
 .content > :not(:first-child) {
 	margin-top: 15px;
 }
 
+.content > header {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	margin-bottom: 25px;
+}
+
+.content > header > :not(:first-child) {
+	margin-left: 35px;
+}
 
 /** Top Navigation Rules **/
 ul.navigation {
@@ -74,7 +83,6 @@ ul.navigation > li:not(:last-child) {
 	main > footer {
 		padding: 5px;
 		grid-row: 4;
-		background-color: lightgray;
 	}
 	main > header {
 		padding: 15px 5px 15px 5px;
@@ -129,5 +137,13 @@ ul.navigation > li:not(:last-child) {
 	ul.navigation > li:not(:last-child) {
 		margin-right: 25px;
 		margin: 10px 25px 0 0;
+	}
+
+	.content > header {
+		flex-direction: column;
+	}
+
+	.content > header > :not(:first-child) {
+		margin-left: 0px;
 	}
 }	

@@ -1,0 +1,18 @@
+body {
+	color: white;
+	font-color: white;
+	background-color: black;
+}
+
+a {
+	color: lightblue;
+}
+
+input, select, textarea {
+	color: white;
+	border-bottom: 1px solid white;
+}
+input[type="button"] {
+	background: #444444;
+	color: lightblue;
+}

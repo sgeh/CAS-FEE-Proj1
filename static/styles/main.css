@@ -1,30 +1,31 @@
 body {
 	font-family: Arial, Verdana;
 	font-size: 16px;
-	font-color: black;
+	/* theme colors */
 }
 
 a {
-	color: darkblue;
 	font-weight: bold;
 	text-decoration: none;
+	/* theme colors */
 }
 
-input, select {
+input, select, textarea {
 	padding: 0;
 	margin: 0;
 	background: transparent;
 	border: none;
 	border-radius: 0;
+	/* theme colors */
 }
-input[full-line], select[full-line] {
+input[full-line], select[full-line], textarea[full-line] {
 	width: 100%;
 }
 input[type="button"] {
-	background: #EEEEEE;
-	color: darkblue;
 	width: 100px;
 	padding: 10px;
+	border: 0;
+	/* theme colors */
 }
 
 select {
