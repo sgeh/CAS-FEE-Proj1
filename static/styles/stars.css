@@ -1,0 +1,45 @@
+.stars {
+	vertical-align: bottom;
+	display: inline-block;
+	width: auto;
+	height: 15px;
+	overflow: hidden;
+}
+
+.stars > input {
+	display: none;
+}
+
+.stars > label {
+	position: relative;
+	display: block;
+	float: right;
+}
+
+.stars > label:after {
+	content: '☆';
+	position: absolute;
+	width: 15px;
+	height: 15px;
+    top: 0;
+    left: 0;
+    z-index: -1;
+	text-align: center;
+}
+
+.stars > label:before {
+	display: block;
+	opacity: 0;
+	content: '★';
+	width: 15px;
+	height: 15px;
+	background-size: 15px 15px;
+	text-align: center;
+	transition: opacity 0.2s linear;
+}
+
+.stars > label:hover:before, 
+.stars > label:hover ~ label:before,
+.stars:not(:hover) > :checked ~ label:before {
+	opacity: 1;
+}

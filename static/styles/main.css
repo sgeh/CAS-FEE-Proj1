@@ -10,22 +10,31 @@ a {
 	/* theme colors */
 }
 
-input, select, textarea {
+
+input[full-line], select[full-line], textarea[full-line] {
+	width: 100%;
+}
+
+input[type="text"], input[type="date"], select, textarea {
 	padding: 0;
 	margin: 0;
 	background: transparent;
 	border: none;
 	border-radius: 0;
 	/* theme colors */
+	font-size: 0.8rem;
 }
-input[full-line], select[full-line], textarea[full-line] {
-	width: 100%;
-}
-input[type="button"] {
+
+input[type="button"], input[type="submit"], a[button] {
 	width: 100px;
 	padding: 10px;
 	border: 0;
-	/* theme colors */
+	font-size: 0.8rem;
+	font-weight: normal;
+	vertical-align: middle;
+	text-align: center;
+	cursor: pointer;
+	/* theme colors */	
 }
 
 select {
