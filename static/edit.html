@@ -1,9 +1,79 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <title>Edit Note</title>
+    <title>CAS FEE Projekt 1 / Edit Formular</title>
+    <link rel="stylesheet" href="styles/globals.css">
+	<link rel="stylesheet" href="styles/stars.css">
+    <link rel="stylesheet" href="styles/cards.css">
+    <link rel="stylesheet" href="styles/cards-theme-white.css" data-themes="Black|White" data-theme-link="styles/cards-theme-{theme}.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/main-theme-white.css" data-themes="Black|White" data-theme-link="styles/main-theme-{theme}.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/index-theme-white.css" data-themes="Black|White" data-theme-link="styles/index-theme-{theme}.css">
+    <link rel="stylesheet" href="styles/edit.css">
+    <link rel="stylesheet" href="styles/edit-theme-white.css" data-themes="Black|White" data-theme-link="styles/edit-theme-{theme}.css">
 </head>
 <body>
+<main>
+    <header class="top-bar">
+        <h1>Notiz editieren/hinzufügen</h1>
+    </header>
+    <nav>
+        <ul class="navigation">
+            <li><a href="/">Übersicht</a></li>
+        </ul>
+    </nav>
+    <section class="content">
+		<form id="frmEdit">
+			<article class="card">
+				<header>
+					<h2 class="title"><label for="txtTitle">Titel: </label><input id="txtTitle" type="text" full-line required pattern=".{3,}"></h2>
+					<div>
+						<span class="stars">
+							<input id="stars5" type="radio" name="importance" value="5">
+							<label for="stars5">5</label>
+							<input id="stars4" type="radio" name="importance" value="4">
+							<label for="stars4">4</label>
+							<input id="stars3" type="radio" name="importance" value="3">
+							<label for="stars3">3</label>
+							<input id="stars2" type="radio" name="importance" value="2">
+							<label for="stars2">2</label>
+							<input id="stars1" type="radio" name="importance" value="1" checked>
+							<label for="stars1">1</label>
+						</span>
+					</div>
+				</header>
+				<section>
+					<div class="edit-line">
+						<label for="txtDescription">Beschreibung: </label>
+						<textarea full-line id="txtDescription" required></textarea>
+					</div>
+					<div class="edit-line">
+						<label for="txtDescription">Zu erledigen bis: </label>
+						<input type="date" id="dteCompleteUntil"></input>
+					</div>
+				</section>
+				<footer>
+					<a button href="/">Zurück</a>
+					<input type="submit" id="btnSave" value="Speichern">
+				</footer>
+			</article>
+		</form>
+    </section>
+    <aside>
+        <label for="ddlStyleSelection">Style:</label>
+        <select id="ddlStyleSelection">
+            <option selected>White</option>
+            <option>Black</option>
+        </select>
+    </aside>
+    <footer>&copy; 2017 - HSR Hochschule für Technik Rapperswil</footer>
+</main>
 
+<script src="scripts/utils.js"></script>
+<script src="scripts/notes.js"></script>
+<script src="scripts/style-switcher.js"></script>
+<script src="scripts/navigation-controller.js"></script>
+<script src="scripts/edit-bootstrapper.js"></script>
 </body>
 </html>

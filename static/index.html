@@ -1,56 +1,74 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Test</title>
-		<link rel="stylesheet" href="styles/globals.css">
-		<link rel="stylesheet" href="styles/cards.css">
-		<link rel="stylesheet" href="styles/main.css">
-		<link rel="stylesheet" href="styles/index.css">
-	</head>
-	<body>
-		<main>
-			<header class="top-bar">
-				<h1>Notizenverwaltung</h1>
+<head>
+	<title>CAS FEE Projekt 1</title>
+	<link rel="stylesheet" href="styles/globals.css">
+	<link rel="stylesheet" href="styles/stars.css">
+	<link rel="stylesheet" href="styles/cards.css">
+	<link rel="stylesheet" href="styles/cards-theme-white.css" data-themes="Black|White" data-theme-link="styles/cards-theme-{theme}.css">
+	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/main-theme-white.css" data-themes="Black|White" data-theme-link="styles/main-theme-{theme}.css">
+	<link rel="stylesheet" href="styles/index.css">
+	<link rel="stylesheet" href="styles/index-theme-white.css" data-themes="Black|White" data-theme-link="styles/index-theme-{theme}.css">
+</head>
+<body>
+<main>
+	<header class="top-bar">
+		<h1>Notizenverwaltung</h1>
+	</header>
+	<nav>
+		<ul class="navigation">
+			<li><a href="/">Übersicht</a></li>
+			<li><a href="/edit.html">Neue Notiz</a></li>
+		</ul>
+	</nav>
+	<section class="content">
+		<header>
+			<div><a href="#" aria-label="Sortieren nach Erstelldatum">Nach Erstelldatum</a></div>
+			<div><a href="#" aria-label="Sortieren nach Abschlussdatum">Nach Abschlussdatum</a></div>
+			<div><a href="#" aria-label="Sortieren nach Wichtigkeit">Nach Wichtigkeit</a></div>
+		</header>
+		<article class="card">
+			<header>
+				<h2 class="title"><a href="#" id="lnkClose">☐</a> <time datetime="2017-26-09 24:00">Heute</time> - CSS Übungen anschauen</h2>
+				<div>☆☆★★★</div>
 			</header>
-			<nav>
-				<ul class="navigation">
-					<li><a href="/">Übersicht</a></li>
-					<li><a href="/edit.html">Neue Notiz</a></li>
-				</ul>
-			</nav>
-			<section class="content">
-				 <article class="card">
-					<header>
-						<h2 class="title">☐ CSS bla</h2>
-						<div>☆☆★★★</div>
-					</header>
-					<section>
-						Bla bla
-					</section>
-					<footer>
-						<input type="button" value="Abschliessen">
-						<input type="button" value="Editieren">
-					</footer>
-				 </article>
-				 <article class="card">
-					<header>
-						<h2 class="title">☑ CSS bla</h2>
-						<div>☆☆★★★</div>
-					</header>
-					<section>
-						Bla bla
-					</section>
-				 </article>
+			<section>
+				Optionale CSS-Übungen anschauen und CSS-Wissen vertiefen.
 			</section>
-			<aside>
-				<label for="ddlStyleSelection">Style:</label>
-				<select id="ddlStyleSelection">
-					<option selected>White</option>
-					<option>Black</option>
-				</select>
-			</aside>
-			<footer>&copy; 2017 - HSR Hochschule für Technik Rapperswil</footer>
-		</main>
-	</body>
+			<footer>
+				<input type="button" id="btnClose" value="Abschliessen">
+				<input type="button" id="btnEdit" value="Editieren">
+			</footer>
+		</article>
+		<article class="card">
+			<header>
+				<h2 class="title">☑  <time datetime="2017-30-09 24:00">30.09.17</time> - Einkaufen</h2>
+				<div>☆☆☆☆★</div>
+			</header>
+			<section>
+				Lebensmittel einkaufen: ...
+			</section>
+		</article>
+		<footer>
+			<span id="lblElementCount"></span> Notiz/en total
+		</footer>
+	</section>
+	<aside>
+		<label for="ddlStyleSelection">Style:</label>
+		<select id="ddlStyleSelection">
+			<option selected>White</option>
+			<option>Black</option>
+		</select>
+	</aside>
+	<footer>&copy; 2017 - HSR Hochschule für Technik Rapperswil</footer>
+</main>
+
+<script src="scripts/utils.js"></script>
+<script src="scripts/notes.js"></script>
+<script src="scripts/style-switcher.js"></script>
+<script src="scripts/navigation-controller.js"></script>
+<script src="scripts/home-bootstrapper.js"></script>
+</body>
 </html>
  

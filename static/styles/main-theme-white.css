@@ -1,0 +1,16 @@
+body {
+	font-color: black;
+	background-color: white;
+}
+
+a {
+	color: darkblue;
+}
+
+input[type="text"], input[type="date"], select, textarea {
+	border-bottom: 1px solid black;
+}
+input[type="button"], input[type="submit"], a[button] {
+	background: #EEEEEE;
+	color: darkblue;
+}
