@@ -1,6 +1,6 @@
-class StyleSwitcher {
-	constructor() {
-		this.styles = Array.prototype.slice.call(document.getElementsByTagName('link'))
+export class StyleSwitcher {
+	constructor(links) {
+		this.styles = [...links]
 			.filter(lnk => lnk.dataset.themes)
 			.map(lnk => { return {
 				link: lnk,

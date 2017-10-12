@@ -24,32 +24,13 @@
 	</nav>
 	<section class="content">
 		<header>
-			<div><a href="#" aria-label="Sortieren nach Erstelldatum">Nach Erstelldatum</a></div>
-			<div><a href="#" aria-label="Sortieren nach Abschlussdatum">Nach Abschlussdatum</a></div>
-			<div><a href="#" aria-label="Sortieren nach Wichtigkeit">Nach Wichtigkeit</a></div>
+			<div><a href="#" data-sort-by="dateCreated" aria-label="Sortieren nach Erstelldatum">Nach Erstelldatum</a></div>
+			<div><a href="#" data-sort-by="dateFinished" aria-label="Sortieren nach Abschlussdatum">Nach Abschlussdatum</a></div>
+			<div><a href="#" data-sort-by="importance" aria-label="Sortieren nach Wichtigkeit">Nach Wichtigkeit</a></div>
 		</header>
-		<article class="card">
-			<header>
-				<h2 class="title"><a href="#" id="lnkClose">☐</a> <time datetime="2017-26-09 24:00">Heute</time> - CSS Übungen anschauen</h2>
-				<div>☆☆★★★</div>
-			</header>
-			<section>
-				Optionale CSS-Übungen anschauen und CSS-Wissen vertiefen.
-			</section>
-			<footer>
-				<input type="button" id="btnClose" value="Abschliessen">
-				<input type="button" id="btnEdit" value="Editieren">
-			</footer>
-		</article>
-		<article class="card">
-			<header>
-				<h2 class="title">☑  <time datetime="2017-30-09 24:00">30.09.17</time> - Einkaufen</h2>
-				<div>☆☆☆☆★</div>
-			</header>
-			<section>
-				Lebensmittel einkaufen: ...
-			</section>
-		</article>
+		<section id="pnlNotes">
+			<!-- articles go here -->
+		</section>
 		<footer>
 			<span id="lblElementCount"></span> Notiz/en total
 		</footer>
@@ -64,11 +45,55 @@
 	<footer>&copy; 2017 - HSR Hochschule für Technik Rapperswil</footer>
 </main>
 
-<script src="scripts/utils.js"></script>
-<script src="scripts/notes.js"></script>
-<script src="scripts/style-switcher.js"></script>
-<script src="scripts/navigation-controller.js"></script>
-<script src="scripts/home-bootstrapper.js"></script>
+<script id="note-list-template" type="text/x-handlebars-template">
+	{{#each notes}}
+		<article class="card">
+			<header>
+				<h2 class="title">
+					{{#if hasFinished}}🗹
+					{{else}}<a href="#" data-note-close="{{ id }}">☐</a>
+					{{/if}}
+					<time datetime="{{ dateFinished }}">{{ format dateFinished 'DD. MMMM YY' }}</time> - {{ title }}</h2>
+				<div>
+					<span class="stars" disabled>
+						<input id="stars5" type="radio" disabled name="importance{{id}}" value="5" {{checked importance 5}}>
+						<label for="stars5">5</label>
+						<input id="stars4" type="radio" disabled name="importance{{id}}" value="4" {{checked importance 4}}>
+						<label for="stars4">4</label>
+						<input id="stars3" type="radio" disabled name="importance{{id}}" value="3" {{checked importance 3}}>
+						<label for="stars3">3</label>
+						<input id="stars2" type="radio" disabled name="importance{{id}}" value="2" {{checked importance 2}}>
+						<label for="stars2">2</label>
+						<input id="stars1" type="radio" disabled name="importance{{id}}" value="1" {{checked importance 1}}>
+						<label for="stars1">1</label>
+					</span>
+				</div>
+			</header>
+			<section>
+				{{ description }}
+			</section>
+			{{#unless hasFinished}}
+			<footer>
+				<input type="button" data-note-close="{{ id }}" value="Abschliessen">
+				<input type="button" data-note-edit="{{ id }}" value="Editieren">
+			</footer>
+			{{/unless}}
+		</article>
+	{{/each}}
+</script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
+
+<script src="scripts/utils/array-utils.js"></script>
+<script src="scripts/utils/comparison-utils.js"></script>
+<script src="scripts/utils/handlebars-utils.js"></script>
+
+<script type="module" src="scripts/model/note.js"></script>
+<script type="module" src="scripts/ui/components/style-switcher.js"></script>
+<script type="module" src="scripts/ui/navigation-controller.js"></script>
+<script type="module" src="scripts/ui/home-bootstrapper.js"></script>
 </body>
 </html>
  

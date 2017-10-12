@@ -38,8 +38,11 @@
 	transition: opacity 0.2s linear;
 }
 
-.stars > label:hover:before, 
-.stars > label:hover ~ label:before,
-.stars:not(:hover) > :checked ~ label:before {
+.stars:not([disabled]) > label:hover:before,
+.stars:not([disabled]) > label:hover ~ label:before,
+.stars:not([disabled]):not(:hover) > :checked ~ label:before {
+	opacity: 1;
+}
+.stars[disabled] > :checked ~ label:before {
 	opacity: 1;
 }
