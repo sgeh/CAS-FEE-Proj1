@@ -25,38 +25,8 @@
     </nav>
     <section class="content">
 		<form id="frmEdit">
-			<article class="card">
-				<header>
-					<h2 class="title"><label for="txtTitle">Titel: </label><input id="txtTitle" type="text" full-line required pattern=".{3,}"></h2>
-					<div>
-						<span class="stars">
-							<input id="stars5" type="radio" name="importance" value="5">
-							<label for="stars5">5</label>
-							<input id="stars4" type="radio" name="importance" value="4">
-							<label for="stars4">4</label>
-							<input id="stars3" type="radio" name="importance" value="3">
-							<label for="stars3">3</label>
-							<input id="stars2" type="radio" name="importance" value="2">
-							<label for="stars2">2</label>
-							<input id="stars1" type="radio" name="importance" value="1" checked>
-							<label for="stars1">1</label>
-						</span>
-					</div>
-				</header>
-				<section>
-					<div class="edit-line">
-						<label for="txtDescription">Beschreibung: </label>
-						<textarea full-line id="txtDescription" required></textarea>
-					</div>
-					<div class="edit-line">
-						<label for="txtDescription">Zu erledigen bis: </label>
-						<input type="date" id="dteCompleteUntil"></input>
-					</div>
-				</section>
-				<footer>
-					<a button href="/">Zurück</a>
-					<input type="submit" id="btnSave" value="Speichern">
-				</footer>
+			<article class="card" id="plnEditField">
+				<!-- edit form goes here -->
 			</article>
 		</form>
     </section>
@@ -70,10 +40,52 @@
     <footer>&copy; 2017 - HSR Hochschule für Technik Rapperswil</footer>
 </main>
 
-<script src="scripts/utils.js"></script>
-<script src="scripts/notes.js"></script>
-<script src="scripts/style-switcher.js"></script>
-<script src="scripts/navigation-controller.js"></script>
-<script src="scripts/edit-bootstrapper.js"></script>
+
+<script id="note-edit-template" type="text/x-handlebars-template">
+	<header>
+		<h2 class="title"><label for="txtTitle">Titel: </label><input id="txtTitle" type="text" value="{{ title }}" full-line required pattern=".{3,}"></h2>
+		<div>
+			<span class="stars">
+				<input id="stars5" type="radio" name="importance" value="5" {{checked importance 5}}>
+				<label for="stars5">5</label>
+				<input id="stars4" type="radio" name="importance" value="4" {{checked importance 4}}>
+				<label for="stars4">4</label>
+				<input id="stars3" type="radio" name="importance" value="3" {{checked importance 3}}>
+				<label for="stars3">3</label>
+				<input id="stars2" type="radio" name="importance" value="2" {{checked importance 2}}>
+				<label for="stars2">2</label>
+				<input id="stars1" type="radio" name="importance" value="1" {{checked importance 1}}>
+				<label for="stars1">1</label>
+			</span>
+		</div>
+	</header>
+	<section>
+		<div class="edit-line">
+			<label for="txtDescription">Beschreibung: </label>
+			<textarea full-line id="txtDescription" required>{{ description }}</textarea>
+		</div>
+		<div class="edit-line">
+			<label for="dteCompleteUntil">Zu erledigen bis: </label>
+			<input type="date" value="{{ format dateFinished 'YYYY-MM-DD' }}" id="dteCompleteUntil">
+		</div>
+	</section>
+	<footer>
+		<a button href="/">Zurück</a>
+		<input type="submit" id="btnSave" value="Speichern">
+	</footer>
+</script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
+
+<script src="scripts/utils/array-utils.js"></script>
+<script src="scripts/utils/comparison-utils.js"></script>
+<script src="scripts/utils/handlebars-utils.js"></script>
+
+<script type="module" src="scripts/model/note.js"></script>
+<script type="module" src="scripts/ui/components/style-switcher.js"></script>
+<script type="module" src="scripts/ui/navigation-controller.js"></script>
+<script type="module" src="scripts/ui/edit-bootstrapper.js"></script>
 </body>
 </html>
