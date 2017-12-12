@@ -53,15 +53,15 @@ import { StyleSwitcher } from './components/style-switcher.js';
 		}
 
         onNoteEdit(event) {
-			let noteId = Number($(event.target).data("note-edit"));
-			if (!isNaN(noteId)) {
+			let noteId = $(event.target).data("note-edit");
+			if (noteId) {
                 this._navController.goToEdit(noteId);
 			}
         }
 
         onNoteClose(event) {
-            let noteId = Number($(event.target).data("note-close"));
-            if (!isNaN(noteId)) {
+            let noteId = $(event.target).data("note-close");
+            if (noteId) {
                 this._noteStorage.getNote(noteId).then(note => {
                     note.hasFinished = true;
 

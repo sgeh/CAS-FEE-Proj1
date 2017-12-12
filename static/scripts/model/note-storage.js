@@ -13,6 +13,10 @@ export class NoteStorage {
         return this._dataService.update(toUpdate);
     }
 
+    deleteNote(toUpdate) {
+        return this._dataService.delete(toUpdate);
+    }
+
     getNote(id) {
         return this._dataService.items.then(items => items.findBy({ id }));
     }

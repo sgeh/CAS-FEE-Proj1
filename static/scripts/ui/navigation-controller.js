@@ -3,8 +3,8 @@ export class NavigationController {
 		window.location.href = "index.html";
 	}
 	
-	goToEdit(numToEdit = "") { 
-		window.location.href = `edit.html?id=${numToEdit}`;
+	goToEdit(idToEdit = "") {
+		window.location.href = `edit.html?id=${idToEdit}`;
 	}
 
 	getParameters() {

@@ -1,6 +1,6 @@
 export class Note {
 	constructor(title, description, importance, dateFinished) {
-		this.id = -1;
+		this.id = '';
 		this.title = title || '';
 		this.description = description || '';
 		this.hasFinished = false;

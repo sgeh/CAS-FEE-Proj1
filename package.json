@@ -1,19 +1,22 @@
 {
-  "name": "02-HTML-CSS",
+  "name": "CAS-FEE-Proj1",
   "version": "1.0.0",
-  "description": "Static webserver",
-  "main": "index.js",
+  "description": "Project 1 - inkl. WebServer",
+  "main": "bin/www.mjs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cas-fe/02-HTML-CSS.git"
+    "url": "https://github.com/sgeh/CAS-FEE-Proj1.git"
   },
-  "author": "Thomas Jaggi",
+  "author": "Silva  Gehrig",
   "license": "MIT",
-  "homepage": "https://github.com/cas-fe/02-HTML-CSS",
+  "homepage": "https://github.com/sgeh/CAS-FEE-Proj1",
   "dependencies": {
-    "serve": "^6.1.0"
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "method-override": "^2.3.10",
+    "nedb": "^1.8.0"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node --experimental-modules bin/www.mjs"
   }
 }

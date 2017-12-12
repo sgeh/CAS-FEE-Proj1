@@ -28,9 +28,9 @@ import { StyleSwitcher } from './components/style-switcher.js';
 			this._frmEdit.on("submit", (event) => this.onFormSubmit(event));
 			this._ddlStyleSelection.on("change", (event) => this._styleSwitcher.switchStyle(event.target.value));
 
-			let id = Number(this._navController.getParameters().id);
-            if (!isNaN(id)) {
-                this._noteStorage.getNote(id).then(note => {
+			let noteId = this._navController.getParameters().id;
+            if (noteId) {
+                this._noteStorage.getNote(noteId).then(note => {
                     this._nodeToEdit = note;
                     this.updateUI(this._nodeToEdit);
                 });
