@@ -6,33 +6,27 @@ export default class NotesController {
         this.service = service || new NoteService();
     }
 
-    getNotes(req, res) {
-        this.service.getAll((err, notes) => {
-            res.json(Note.toDtos(notes));
-        })
+    async getNotes(req, res) {
+        res.json(Note.toDtos(await this.service.getAll()));
     }
 
-    getNote(req, res) { //:id
-        this.service.get(req.params.id, (err, note) => {
-            res.json(note.toDto());
-        });
+    async getNote(req, res) { //:id
+        const changedNode = await this.service.get(req.params.id);
+        res.json(changedNode.toDto());
     }
 
-    insertNote(req, res) {
-        this.service.insert(Note.fromDto(req.body), (err, note) => {
-            res.json(note.toDto());
-        });
+    async insertNote(req, res) {
+        const changedNode = await this.service.insert(Note.fromDto(req.body));
+        res.json(changedNode.toDto());
     }
 
-    updateNote(req, res) {
-        this.service.update(Note.fromDto(req.body), (err, note) => {
-            res.json(note.toDto());
-        });
+    async updateNote(req, res) {
+        const changedNode = await this.service.update(Note.fromDto(req.body));
+        res.json(changedNode.toDto());
     }
 
-    deleteNote(req, res) {  //:id
-        this.service.delete(req.params.id, (err, note) => {
-            res.json(note.toDto());
-        });
+    async deleteNote(req, res) {  //:id
+        const changedNode = await this.service.delete(req.params.id);
+        res.json(changedNode.toDto());
     }
 };

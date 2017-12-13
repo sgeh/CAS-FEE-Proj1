@@ -4,12 +4,12 @@ import NotesController from '../controller/notes-controller';
 const routes = express.Router();
 const controller = new NotesController();
 
-routes.get("/", (req, res) => controller.getNotes(req, res));
-routes.get("/:id/", (req, res) => controller.getNote(req, res));
+routes.get("/", controller.getNotes.bind(controller));
+routes.get("/:id/", controller.getNote.bind(controller));
 
-routes.post("/", (req, res) => controller.insertNote(req, res));
-routes.post("/:id/", (req, res) => controller.updateNote(req, res));
+routes.post("/", controller.insertNote.bind(controller));
+routes.post("/:id/", controller.updateNote.bind(controller));
 
-routes.delete("/:id/", (req, res) => controller.deleteNote(req, res));
+routes.delete("/:id/", controller.deleteNote.bind(controller));
 
 export default routes;

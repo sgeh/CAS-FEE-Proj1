@@ -1,7 +1,6 @@
 import Datastore from 'nedb';
 import NoteEntityConverter from './note-entity-converter';
-
-//export default instance = new NotesController(new Datastore({ filename: './data/notes.db', autoload: true }));
+import { toQuery, toCountedQuery } from '../utils/db-utils';
 
 export default class NotesController {
     constructor(db) {
@@ -9,50 +8,53 @@ export default class NotesController {
         this.converter = new NoteEntityConverter();
     }
 
-    insert(note, callback) {
-        this.db.insert(
-            this.converter.toEntity(note, true),
-            (err, newDoc) => {
-                if(callback){
-                    callback(err, this.converter.fromEntity(newDoc));
-                }
+    async insert(note) {
+        const insertedResult = await toQuery(finish => {
+                this.db.insert(
+                    this.converter.toEntity(note, true),
+                    finish);
             });
+        return this.converter.fromEntity(insertedResult);
     }
 
-    update(note, callback) {
-        this.db.update(
-            { _id: note.id },
-            { $set: this.converter.toEntity(note) },
-            {returnUpdatedDocs:true},
-            (err, count, doc) => {
-                callback(err, this.converter.fromEntity(doc));
+    async update(note, callback) {
+        const updateResult = await toCountedQuery(finish => {
+                this.db.update(
+                    { _id: note.id },
+                    { $set: this.converter.toEntity(note) },
+                    {returnUpdatedDocs:true},
+                    finish);
             });
+        return this.converter.fromEntity(updateResult.doc);
     }
 
-    delete(id, callback) {
-        this.db.update(
-            { _id: id },
-            { $set: { state: "DELETED"} },
-            {returnUpdatedDocs:true},
-            (err, count, doc) => {
-                callback(err, this.converter.fromEntity(doc));
-            });
+    async delete(id, callback) {
+        const deleteResult = await toCountedQuery(finish => {
+            this.db.update(
+                { _id: id },
+                { $set: { state: "DELETED"} },
+                {returnUpdatedDocs:true},
+                finish);
+        });
+        return this.converter.fromEntity(deleteResult.doc);
     }
 
-    get(id, callback) {
-        this.db.findOne(
-            { _id: id, state: { $ne: "DELETED" } },
-            (err, doc) => {
-                callback( err, this.converter.fromEntity(doc));
-            });
+    async get(id) {
+        const selectResult = await toQuery(finish => {
+            this.db.findOne(
+                { _id: id, state: { $ne: "DELETED" } },
+                finish);
+        });
+        return this.converter.fromEntity(selectResult);
     }
 
-    getAll(callback) {
-        this.db.find({ state: { $ne: "DELETED" }})
-            .sort({ title: -1 })
-            .exec((err, docs) => {
-                callback( err, this.converter.fromEntities(docs));
-            });
+    async getAll() {
+        const selectResult = await toQuery(finish => {
+            this.db.find({ state: { $ne: "DELETED" }})
+                .sort({ title: -1 })
+                .exec(finish);
+        });
+        return this.converter.fromEntities(selectResult);
     }
-
 };
+

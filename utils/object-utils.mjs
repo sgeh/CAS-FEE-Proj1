@@ -1,3 +1,12 @@
+/**
+ * Assigns all properites of the source object to the target object.
+ * Ignores all functions and uses the given mappings to convert properties names from the source to the target.
+ *
+ * @param target Target object which should be filled.
+ * @param source Source object which properties should be copied.
+ * @param mappings Mappings for manual property assignment.
+ * @returns {*}
+ */
 export function mapObject(target, source, mappings) {
     if (!source || !target) {
         return;
