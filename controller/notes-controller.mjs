@@ -2,8 +2,8 @@ import NoteService from '../services/notes-service';
 import Note from '../services/note';
 
 export default class NotesController {
-    constructor() {
-        this.service = new NoteService();
+    constructor(service) {
+        this.service = service || new NoteService();
     }
 
     getNotes(req, res) {

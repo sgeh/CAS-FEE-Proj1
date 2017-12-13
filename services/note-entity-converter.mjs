@@ -15,6 +15,6 @@ export default class NoteEntityConverter
     }
 
     toEntity(entity, isNew) {
-        return mapObject({ }, entity, { id: !isNew ? '_id' : null });;
+        return mapObject({ }, entity, { id: !isNew ? '_id' : null });
     }
 }

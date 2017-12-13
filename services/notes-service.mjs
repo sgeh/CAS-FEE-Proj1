@@ -1,20 +1,18 @@
 import Datastore from 'nedb';
 import NoteEntityConverter from './note-entity-converter';
 
+//export default instance = new NotesController(new Datastore({ filename: './data/notes.db', autoload: true }));
+
 export default class NotesController {
-    constructor() {
-        this.db = new Datastore({ filename: './data/notes.db', autoload: true });
+    constructor(db) {
+        this.db = db || new Datastore({ filename: './data/notes.db', autoload: true });
         this.converter = new NoteEntityConverter();
     }
 
     insert(note, callback) {
-        console.log(note);
-        console.log(this.converter.toEntity(note, true));
         this.db.insert(
             this.converter.toEntity(note, true),
             (err, newDoc) => {
-                console.log(newDoc);
-                console.log(this.converter.fromEntity(newDoc));
                 if(callback){
                     callback(err, this.converter.fromEntity(newDoc));
                 }

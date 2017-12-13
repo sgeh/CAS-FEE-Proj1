@@ -29,6 +29,6 @@ export default class Note
     }
 
     toDto() {
-        return Object.assign({ }, this);
+        return mapObject({ }, this);
     }
 }
