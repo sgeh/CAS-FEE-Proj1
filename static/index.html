@@ -25,7 +25,7 @@
 	<section class="content">
 		<header>
 			<div><a href="#" data-sort-by="dateCreated" aria-label="Sortieren nach Erstelldatum">Nach Erstelldatum</a></div>
-			<div><a href="#" data-sort-by="dateFinished" aria-label="Sortieren nach Abschlussdatum">Nach Abschlussdatum</a></div>
+			<div><a href="#" data-sort-by="dateFinished" aria-label="Sortieren nach Fälligkeitsdatum">Nach Fälligkeitsdatum</a></div>
 			<div><a href="#" data-sort-by="importance" aria-label="Sortieren nach Wichtigkeit">Nach Wichtigkeit</a></div>
 		</header>
 		<section id="pnlNotes">
@@ -53,7 +53,7 @@
 					{{#if hasFinished}}🗹
 					{{else}}<a href="#" data-note-close="{{ id }}">☐</a>
 					{{/if}}
-					<time datetime="{{ dateFinished }}">{{ format dateFinished 'DD. MMMM YY' }}</time> - {{ title }}</h2>
+					<time datetime="{{ dateFinished }}">{{ format dateFinished 'DD. MMMM YY' 'Ohne Fälligkeitsdatum' }}</time> - {{ title }}</h2>
 				<div>
 					<span class="stars" disabled>
 						<input id="stars5" type="radio" disabled name="importance{{id}}" value="5" {{checked importance 5}}>
@@ -82,7 +82,7 @@
 	{{/each}}
 </script>
 
-<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
 

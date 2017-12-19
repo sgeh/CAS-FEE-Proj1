@@ -7,6 +7,10 @@ Handlebars.registerHelper('checked', function(variable, value) {
     }
 });
 
-Handlebars.registerHelper('format', function(variable, format) {
-    return new Handlebars.SafeString(moment(variable).format(format));
+Handlebars.registerHelper('format', function(variable, format, defaultValue) {
+    if (variable) {
+        return new Handlebars.SafeString(moment(variable).format(format));
+    } else {
+        return new Handlebars.SafeString(defaultValue);
+    }
 });

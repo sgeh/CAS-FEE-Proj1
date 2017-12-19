@@ -1,3 +1,6 @@
+/**
+ * Represents a local data sink for notes.
+ */
 export class NoteDataLocalService {
 	constructor(storage) {
 	    this._storage = storage || window.localStorage;
@@ -35,8 +38,6 @@ export class NoteDataLocalService {
     }
 
 	get items() {
-        return new Promise((resolve, reject) => {
-            resolve(this._items);
-        });
+        return Promise.resolve(this._items);
 	}
 }

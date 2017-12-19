@@ -8,6 +8,9 @@ export default class NotesController {
         this.converter = new NoteEntityConverter();
     }
 
+    /**
+     * Inserts a new note into the data storage and return a Promise to support async/await.
+     */
     async insert(note) {
         const insertedResult = await toQuery(finish => {
                 this.db.insert(
@@ -17,6 +20,9 @@ export default class NotesController {
         return this.converter.fromEntity(insertedResult);
     }
 
+    /**
+     * Updates an existing note in the data storage and return a Promise to support async/await.
+     */
     async update(note, callback) {
         const updateResult = await toCountedQuery(finish => {
                 this.db.update(
@@ -28,6 +34,9 @@ export default class NotesController {
         return this.converter.fromEntity(updateResult.doc);
     }
 
+    /**
+     * Deletes an existing note from the data storage and return a Promise to support async/await.
+     */
     async delete(id, callback) {
         const deleteResult = await toCountedQuery(finish => {
             this.db.update(
@@ -39,6 +48,9 @@ export default class NotesController {
         return this.converter.fromEntity(deleteResult.doc);
     }
 
+    /**
+     * Returns the given note from the data storage and return a Promise to support async/await.
+     */
     async get(id) {
         const selectResult = await toQuery(finish => {
             this.db.findOne(
@@ -48,6 +60,9 @@ export default class NotesController {
         return this.converter.fromEntity(selectResult);
     }
 
+    /**
+     * Returns all notes from the data storage and return a Promise to support async/await.
+     */
     async getAll() {
         const selectResult = await toQuery(finish => {
             this.db.find({ state: { $ne: "DELETED" }})

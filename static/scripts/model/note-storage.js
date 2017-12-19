@@ -1,27 +1,30 @@
 import { Note } from './note.js';
 
+/**
+ * Client side bussiness service (as simple storage).
+ */
 export class NoteStorage {
     constructor(dataService) {
         this._dataService = dataService;
     }
 
-    createNote(title, description, importance, dateFinished) {
+    async createNote(title, description, importance, dateFinished) {
         return this._dataService.insert(new Note(title, description, importance, dateFinished));
     }
 
-    updateNote(toUpdate) {
+    async updateNote(toUpdate) {
         return this._dataService.update(toUpdate);
     }
 
-    deleteNote(toUpdate) {
+    async deleteNote(toUpdate) {
         return this._dataService.delete(toUpdate);
     }
 
-    getNote(id) {
-        return this._dataService.items.then(items => items.findBy({ id }));
+    async getNote(id) {
+        return (await this._dataService.items).findBy({ id });
     }
 
-    getNotes(sortBy = "title", sortOrderAsc = false) {
-        return this._dataService.items.then(items => items.sort(ComparsionUtils.compareAscDesc(sortBy, sortOrderAsc)));
+    async getNotes(sortBy = "title", sortOrderAsc = false) {
+        return (await this._dataService.items).sort(ComparsionUtils.compareAscDesc(sortBy, sortOrderAsc));
     }
 }

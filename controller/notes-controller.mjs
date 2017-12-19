@@ -1,6 +1,9 @@
 import NoteService from '../services/notes-service';
 import Note from '../services/note';
 
+/**
+ * Forwards incoming calls to the underlying business logic service/s.
+ */
 export default class NotesController {
     constructor(service) {
         this.service = service || new NoteService();

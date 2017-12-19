@@ -1,5 +1,8 @@
 import {mapObject} from '../utils/object-utils';
 
+/**
+ * Represents the server-side Note implementation.
+ */
 export default class Note
 {
     constructor(title, description, importance, dateFinished) {
@@ -12,10 +15,22 @@ export default class Note
         this.dateFinished = dateFinished || null;
     }
 
+    /**
+     * Converts the given DTO (from JSON) into a new Note instance.
+     *
+     * @param dto JSON data to convert into an object.
+     * @returns {*}
+     */
     static fromDto(dto) {
         return mapObject(new Note(), dto);
     }
 
+    /**
+     * Converts multiple Note instances into an array of DTO's (JSON serializable data objects).
+     *
+     * @param dto JSON data to convert into an object.
+     * @returns {*}
+     */
     static toDtos(notes) {
         if (!notes) {
             return [ ];
@@ -28,6 +43,10 @@ export default class Note
         }
     }
 
+    /**
+     * Converts the Note into a new DTO (JSON serializable data object).
+     * @returns {*}
+     */
     toDto() {
         return mapObject({ }, this);
     }

@@ -5,7 +5,9 @@ import { NavigationController } from './navigation-controller.js';
 import { StyleSwitcher } from './components/style-switcher.js';
 
 ;(function($) {
-
+    /**
+	 * Controller facilities for edit.html file.
+     */
 	class EditController {
 
 		constructor(noteEditTemplate, frmEdit, plnEditField, ddlStyleSelection) {
@@ -17,7 +19,7 @@ import { StyleSwitcher } from './components/style-switcher.js';
 		}
 
 
-		bootstrap() {
+		async bootstrap() {
             this._navController = new NavigationController();
             this._noteStorage = new NoteStorage(new NoteDataService());
 
@@ -28,12 +30,10 @@ import { StyleSwitcher } from './components/style-switcher.js';
 			this._frmEdit.on("submit", (event) => this.onFormSubmit(event));
 			this._ddlStyleSelection.on("change", (event) => this._styleSwitcher.switchStyle(event.target.value));
 
-			let noteId = this._navController.getParameters().id;
+			const noteId = this._navController.getParameters().id;
             if (noteId) {
-                this._noteStorage.getNote(noteId).then(note => {
-                    this._nodeToEdit = note;
-                    this.updateUI(this._nodeToEdit);
-                });
+				this._nodeToEdit = await this._noteStorage.getNote(noteId);
+				this.updateUI(this._nodeToEdit);
             } else {
                 this.updateUI();
 			}
@@ -47,31 +47,29 @@ import { StyleSwitcher } from './components/style-switcher.js';
             this._dteCompleteUntil = $("#dteCompleteUntil");
 		}
 
-		onFormSubmit(event) {
+		async onFormSubmit(event) {
+            event.preventDefault();
+
 			if (!this._nodeToEdit) {
-                this._noteStorage.createNote(
+                await this._noteStorage.createNote(
                     this._txtTitle.val(),
                     this._txtDescription.val(),
                     Number(this._frmEdit.prop("elements").importance.value),
-                    this._dteCompleteUntil.prop("valueAsDate")).then(() => {
-                        this._navController.goToHome();
-                    });
+                    this._dteCompleteUntil.prop("valueAsDate"));
             } else {
                 this._nodeToEdit.title = this._txtTitle.val();
                 this._nodeToEdit.description = this._txtDescription.val();
                 this._nodeToEdit.importance = Number(this._frmEdit.prop("elements").importance.value);
                 this._nodeToEdit.dateFinished = this._dteCompleteUntil.prop("valueAsDate");
 
-                this._noteStorage.updateNote(this._nodeToEdit).then(() => {
-                    this._navController.goToHome();
-				});
+                await this._noteStorage.updateNote(this._nodeToEdit);
 			}
-			event.preventDefault();
+            this._navController.goToHome();
 		}
 	}
 
-	$(function() {
-		new EditController(
+	$(() => {
+        new EditController(
             $("#note-edit-template"),
 			$("#frmEdit"),
 			$("#plnEditField"),

@@ -1,3 +1,6 @@
+/**
+ * Client-side model (note representation).
+ */
 export class Note {
 	constructor(title, description, importance, dateFinished) {
 		this.id = '';

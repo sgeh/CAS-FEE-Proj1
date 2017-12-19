@@ -4,7 +4,9 @@ import { NavigationController } from './navigation-controller.js';
 import { StyleSwitcher } from './components/style-switcher.js';
 
 ;(function($) {
-
+    /**
+     * Controller facilities for index.html file.
+     */
     class HomeController {
 		constructor(noteListTemplate, pnlNotes, lblElementCount, ddlStyleSelection) {
             this._noteListTemplate = noteListTemplate;
@@ -15,7 +17,7 @@ import { StyleSwitcher } from './components/style-switcher.js';
             this._sortProp = void 0;
 		}
 
-		bootstrap() {
+		async bootstrap() {
             this._navController = new NavigationController();
             this._noteStorage = new NoteStorage(new NoteDataService());
 
@@ -28,19 +30,20 @@ import { StyleSwitcher } from './components/style-switcher.js';
             $(document).on("click", "[data-note-close]", (event) => this.onNoteClose(event));
             $(document).on("click", "[data-sort-by]", (event) => this.onDataSort(event));
 
-            this.updateUI();
+            await this.updateUI();
 		}
 
-		updateUI() {
-            this._noteStorage.getNotes(this._sortProp, this._sortOrderAsc).then(
-                (notes) => {
-                    this._pnlNotes.html(this._noteListTemplateProcessor({ notes }));
-                    this._lblElementCount.html(notes.length);
-                });
+		async updateUI() {
+            const notes = await this._noteStorage.getNotes(this._sortProp, this._sortOrderAsc);
+
+			this._pnlNotes.html(this._noteListTemplateProcessor({ notes }));
+			this._lblElementCount.html(notes.length);
 		}
 
-        onDataSort(event) {
-			let newSortProp = $(event.target).data("sort-by");
+        async onDataSort(event) {
+            event.preventDefault();
+
+            const newSortProp = $(event.target).data("sort-by");
 			if (this._sortProp !== newSortProp) {
 				this._sortOrderAsc = false;
 			} else {
@@ -48,32 +51,29 @@ import { StyleSwitcher } from './components/style-switcher.js';
 			}
 			this._sortProp = newSortProp;
 
-			this.updateUI();
-            event.preventDefault();
+			await this.updateUI();
 		}
 
-        onNoteEdit(event) {
-			let noteId = $(event.target).data("note-edit");
+        async onNoteEdit(event) {
+			const noteId = $(event.target).data("note-edit");
 			if (noteId) {
                 this._navController.goToEdit(noteId);
 			}
         }
 
-        onNoteClose(event) {
-            let noteId = $(event.target).data("note-close");
+        async onNoteClose(event) {
+            const noteId = $(event.target).data("note-close");
             if (noteId) {
-                this._noteStorage.getNote(noteId).then(note => {
-                    note.hasFinished = true;
+                const note = await this._noteStorage.getNote(noteId);
+				note.hasFinished = true;
 
-                    this._noteStorage.updateNote(note).then(() => {
-                        this.updateUI();
-                    });
-				});
+				await this._noteStorage.updateNote(note);
+				await this.updateUI();
             }
         }
 	}
 
-	$(function() {
+	$(() => {
 		new HomeController(
             $("#note-list-template"),
 			$("#pnlNotes"),

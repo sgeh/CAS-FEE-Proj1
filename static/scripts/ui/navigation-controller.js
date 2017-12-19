@@ -1,3 +1,6 @@
+/**
+ * Navigation controller to provide facilities to navigate between pages.
+ */
 export class NavigationController {
 	goToHome() {
 		window.location.href = "index.html";

@@ -1,60 +1,52 @@
+/**
+ * Represents a server-side data sink for notes.
+ */
 export class NoteDataService {
 	constructor(storage) {
 		this._items = [ ];
 	}
 
 	insert(toAdd) {
-	    return new Promise((resolve, reject) => {
-            this.call(`/`, 'POST', toAdd)
-                .then(response => response.json())
-                .then(result => {
-                    if (result) {
-                        this._items.push(toAdd);
-                    }
-                    resolve(result);
-                });
-        });
+        return this.call(`/`, 'POST', toAdd)
+            .then(result => {
+                if (result) {
+                    this._items.push(toAdd);
+                }
+                return result;
+            });
 	}
 
 	update(toUpdate) {
-        return new Promise((resolve, reject) => {
-            this.call(`/${toUpdate.id}`, 'POST', toUpdate)
-                .then(response => response.json())
-                .then(result => {
-                    this._items[this.getIndexById(toUpdate)] = toUpdate;
-                    resolve(result);
-                });
+        return this.call(`/${toUpdate.id}`, 'POST', toUpdate)
+            .then(result => {
+                this._items[this.getIndexById(toUpdate)] = toUpdate;
+                return result;
         });
 	}
 
 	delete(toDelete) {
-        return new Promise((resolve, reject) => {
-            this.call(`/${toUpdate.id}`, 'DELETE', toDelete)
-                .then(response => response.json())
-                .then(result => {
-                    if (result) {
-                        this._items.splice(this.getIndexById(toUpdate), 1);
-                    }
-                    resolve(result);
-                });
-        });
+        this.call(`/${toUpdate.id}`, 'DELETE', toDelete)
+            .then(result => {
+                if (result) {
+                    this._items.splice(this.getIndexById(toDelete), 1);
+                }
+                return result;
+            });
     }
 
 	get items() {
-        return new Promise((resolve, reject) => {
-            if (!this._items.length) {
-                this.call(`/`, 'GET')
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result) {
-                            this._items = result;
-                        }
-                        resolve(result);
-                    });
-            } else {
-                resolve(this._items);
-            }
-        });
+        if (!this._items.length) {
+            return this.call(`/`, 'GET')
+                .then(result => {
+                    if (result) {
+                        this._items = result;
+                    }
+                    return result;
+                });
+        } else {
+            // return items directly from cache
+            return Promise.resolve(this._items);
+        }
 	}
 
 	getIndexById(toSearch) {
@@ -71,6 +63,6 @@ export class NoteDataService {
                 }),
                 mode: 'cors',
                 body: data ? JSON.stringify(data) : void 0
-            }));
+            })).then(response => response.json());
     }
 }
